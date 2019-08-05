@@ -13,8 +13,9 @@ $ReplyUrls = "<yourUrl>"
 # Create a new AAD web application
 $app = New-AzureADApplication -DisplayName $DisplayName -Homepage $Homepage -ReplyUrls $ReplyUrls
 
-# Creates a service principal
+# Creates a service principal and displays the Application Id
 $sp = New-AzureADServicePrincipal -AppId $app.AppId
+Write-Host ("`nService Principal Application Id = " + $app.AppId)
 
 # Get the service principal key
 $key = New-AzureADServicePrincipalPasswordCredential -ObjectId $sp.ObjectId
@@ -27,4 +28,4 @@ Write-Host ("Service Principal Key = " + $key.value)
 
 # Display tenant info
 $tenantId = Get-AzureADTenantDetail
-Write-Host ("Service Principal Key = " + $tenantId.ObjectId + "`n")
+Write-Host ("Tenant Id = " + $tenantId.ObjectId + "`n")
